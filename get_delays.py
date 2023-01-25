@@ -1,5 +1,6 @@
 import psycopg2
 import pandas as pd
+import numpy as np
 from config import params_dic
 
 
@@ -15,8 +16,8 @@ cursor.close()
 cleaned_df=df.dropna(subset=["arr_del15","dep_del15"])
 #no null values print(len(cleaned_df))
 
-#create column to isolate delays
+#create new column with delayed flights
 
+df['delayed'] = np.where((df['arr_del15'] == df['dep_del15']), np.where(df['arr_del15']==True,1,0), np.nan)
 
-
-
+print(df["delayed"])
